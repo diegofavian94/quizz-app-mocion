@@ -1,13 +1,28 @@
-
-import { Link } from "wouter"
+import { useState, useRef } from "react"
 import useQuestionsApi from "../customHooks/useQuestionsApi"
 import { Question } from "./Question"
-import { useState } from "react"
+import { Result } from "./Result"
+
 
 export const Quiz: React.FC<{}> = () => {
     
     const [index, setIndex]=useState(0)
     const service = useQuestionsApi()
+    const score = useRef(0)
+    const answers = useRef<any>([])
+
+const nextQuestion  = (answer:"True"|"False") =>{
+    
+    if(
+        service.status==="loaded" 
+        && 
+        answer===service.payload.results[index].correct_answer
+    ){
+      score.current=score.current+1
+    }
+    answers.current[index]=answer
+    setIndex(index+1)
+}
 
   return (
     <>
@@ -19,11 +34,20 @@ export const Quiz: React.FC<{}> = () => {
                 question={service.payload.results[index].question}
                 number={index+1}
             />
-            <button onClick={()=>setIndex(index+1)}>True</button>
-            <button onClick={()=>setIndex(index+1)}>False</button>    
+            <button onClick={()=>nextQuestion("True")}>True</button>
+            <button onClick={()=>nextQuestion("False")}>False</button>    
           </div>
         }
-        {index>=12 && <Link href="/"><a>Play Again!</a></Link>}
+        {service.status === 'loaded' 
+        &&
+        index>=12 
+        && 
+            <Result 
+                score={score.current} 
+                questions={service.payload.results} 
+                answers={answers.current}
+            />
+        }
     </>
   )
 }
