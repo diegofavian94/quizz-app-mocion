@@ -10,3 +10,10 @@
 .quiz-app {
   height: calc(100vh - 5rem)
 }
+
+
+@media (min-width: 612px){
+  #root{
+    max-width: 612px;
+  }
+}
