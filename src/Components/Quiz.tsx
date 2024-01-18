@@ -25,17 +25,29 @@ const nextQuestion  = (answer:"True"|"False") =>{
 }
 
   return (
-    <>
+    <div className="h-100">
         {service.status === 'loading' && <div>Loading...</div>}
         {service.status === 'loaded' && index < 12 &&
-          <div key={"question_"+index}>
+          <div className="h-100 flex flex-column justify-between">
             <Question 
                 category={service.payload.results[index].category}
                 question={service.payload.results[index].question}
                 number={index+1}
             />
-            <button onClick={()=>nextQuestion("True")}>True</button>
-            <button onClick={()=>nextQuestion("False")}>False</button>    
+            <div className="flex flex-column">
+                <button 
+                    className="f5 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib white" 
+                    onClick={()=>nextQuestion("True")}
+                >
+                    True
+                </button>
+                <button 
+                    className="f5 grow no-underline br-pill ba bw2 ph3 pv2 mb2 dib white"
+                    onClick={()=>nextQuestion("False")}
+                >
+                    False
+                </button>    
+            </div>
           </div>
         }
         {service.status === 'loaded' 
@@ -48,6 +60,6 @@ const nextQuestion  = (answer:"True"|"False") =>{
                 answers={answers.current}
             />
         }
-    </>
+    </div>
   )
 }

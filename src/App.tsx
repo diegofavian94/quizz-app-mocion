@@ -5,10 +5,10 @@ import './App.css'
 
 function App() {
   return (
-    <>
+    <div className="quiz-app">
       <Route path='/' component={Home} />
       <Route path='/quiz' component={Quiz} />
-    </>
+    </div>
   )
 }
 
