@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useEffectOnce } from './useEffectOnce'
 import questionsApi from '../api/questionsApi'
 import { Service } from '../types/Services'
-import { IQuestions } from '../types/questions'
+import { IQuestions } from '../types/Questions'
 
 const useQuestionsApi = () => {
 
@@ -15,7 +15,7 @@ const useQuestionsApi = () => {
             const data = await questionsApi.get("",
             {
                 params:{
-                amount:10,
+                amount:12,
                 difficulty:"hard",
                 type:"boolean"
                 }
